@@ -14,7 +14,8 @@ of the request.
 
 
 
-Using the api
+Using the API
+
 
 ```
  POST  route-  localhost:3090/signup
@@ -37,7 +38,7 @@ response
 }
 
 ```
-
+SAVE THE TOKEN RECEIVED AND ADD IT IN HEADER WHILE ACCESSING PROTECTED ROUTES 
 ```
 POST route localhost:3090/signin
 req
@@ -52,7 +53,7 @@ response
 }
 
 ```
-
+USE THE ID SAVED IN THE DATABASE TO ACCESS THE USER INFO
 ```
 
 GET route- localhost:3090/user/591771b476146f1ff71d7656
