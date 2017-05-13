@@ -72,6 +72,7 @@ response
 
 ```
 
+PASS ID AND ALL PROPERTIES WHICH NEEDS TO BE UPDATED
 
 ```
 
