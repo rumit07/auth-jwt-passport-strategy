@@ -76,7 +76,7 @@ exports.fetchUser = function(req,res,next){
 
   User.findOne({_id:id},function(err,User){
 
-     res.send(User);
+     
     if(err){ res.send({error:err}) };
 
     if(User){
