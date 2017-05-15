@@ -27,19 +27,26 @@ User.findOne({email:email},function(err,user){
 });
 
 
-//setup options for jwt strategy
-const jwtOptions = {
-  jwtFromRequest:ExtractJwt.fromHeader('Authorization'),
-    secretOrKey:secret
-};
 
 
 //create Jwt Strategy
+const jwtOptions = {
+  jwtFromRequest:ExtractJwt.fromHeader('authorization'),
+  secretOrKey:secret
+};
+
+
+//create Jwt Startegy
 const jwtLogin = new JwtStrategy(jwtOptions,function(payload,done){
+
+
+
   User.findById(payload.sub,function(err,user){
     if(err){ return done(err,false); }
 
     if(user){
+
+
       done(null,user);
     }else{
       done(null,false);
@@ -47,10 +54,6 @@ const jwtLogin = new JwtStrategy(jwtOptions,function(payload,done){
   });
 
 });
-
-
-
-
 
 passport.use(jwtLogin);
 passport.use(localLogin);

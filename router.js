@@ -21,11 +21,10 @@ app.post('/signup',Authentication.signup);
 
 //it is a protected route
 //requireAuth is a middleware which checks if user is authenticated or not .
-//im removing requireAuth middleware cause there is some glitch jwt Strategy which i am not able to fix.
-  app.get('/user/:id',Authentication.fetchUser);
+  app.get('/user/:id',requireAuth,Authentication.fetchUser);
 
 //Same goes for this route also
-  app.post('/update/:id',Authentication.updateUser);
+  app.post('/update/:id',requireAuth,Authentication.updateUser);
 
 
 }

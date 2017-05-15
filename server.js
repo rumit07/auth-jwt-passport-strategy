@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const config = require('./config');
 
 //DB setup
-mongoose.connect('mongodb://localhost:auth/auth');
+mongoose.connect('mongodb://localhost:auth/auth-task');
 
 //App Setup
 app.use(morgan('combined')); //morgan is used for logs (debugging)
