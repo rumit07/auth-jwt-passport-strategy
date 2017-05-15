@@ -24,7 +24,7 @@ app.post('/signup',Authentication.signup);
   app.get('/user/:id',requireAuth,Authentication.fetchUser);
 
 //Same goes for this route also
-  app.post('/update/:id',requireAuth,Authentication.updateUser);
+  app.put('/update/:id',requireAuth,Authentication.updateUser);
 
 
 }
