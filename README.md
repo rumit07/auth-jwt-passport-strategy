@@ -1,7 +1,6 @@
 Getting started with this repo.
 ```
 	> git clone https://github.com/utkarshkpal/auth-task.git
-	> cd ReduxSimpleStarter
 	> npm install
 	> npm start
   
@@ -14,84 +13,7 @@ of the request.
 
 In token based approach logout functionality will not be handled at backend. When user logout the front end dev will destroy the token from the localStorage.
 
+run signup.html file in google chrome
 
 
-Using the API
-
-
-```
- POST  route-  localhost:3090/signup
-
-pass this in body (content type json)
-{   
-	"email":"admin",
-	"password":"password",
-	"name":"Utkarsh Kandpal",
-	"dateOfBirth":"1993-09-24",
-	"status":"hey there"
-
-}
-
-response
-
-{
-  "success": "true",
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1OTE3NzFiNDc2MTQ2ZjFmZjcxZDc2NTYiLCJpYXQiOjE0OTQ3MDg2NjA5MDl9.m8YTKqh5Ty2J7qIal9dP38ZNSDDC6UX6NRiQRzHLlAk"
-}
-
-```
-SAVE THE TOKEN RECEIVED AND ADD IT IN HEADER WHILE ACCESSING PROTECTED ROUTES 
-```
-POST route localhost:3090/signin
-req
-{   
-	"email":"admin",
-	"password":"password"
-
-}
-response
-{
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1OTE3NzRlYjNlNjYwYTIwMzQyMjFiNmEiLCJpYXQiOjE0OTQ3MDk0OTA3ODd9.eRxl43CSt1bISrRpBJEZMq9E-ETURamb4G6AMivF7zA"
-}
-
-```
-USE THE ID SAVED IN THE DATABASE TO ACCESS THE USER INFO
-```
-
-GET route- localhost:3090/user/591771b476146f1ff71d7656
-
-response
-
-{
-  "_id": "591771b476146f1ff71d7656",
-  "email": "admin",
-  "password": "$2a$10$nDYaE.kyyUjrQp6hMTHhVukDOq8G3CoSg8lgCju7pA6fmkas/1eFi",
-  "name": "Utkarsh Kandpal",
-  "dateOfBirth": "1993-09-24T00:00:00.000Z",
-  "status": "hey there",
-  "__v": 0
-}
-
-```
-
-PASS ID AND ALL PROPERTIES WHICH NEEDS TO BE UPDATED
-
-```
-
-POST route-  localhost:3090/update/591771b476146f1ff71d7656
-
-{   
-	"email":"admin1",
-	"name":"Utkarsh Kandpal",
-	"dateOfBirth":"1993-09-24",
-	"status":"hey there updated"
-
-}
-
-response
-
-{
-  "success": "true",
-  "msg": "User updated Successfully"
-}
 ```
