@@ -9,12 +9,15 @@ const router = require('./router');
 const mongoose = require('mongoose');
 const config = require('./config');
 
+const cors =require ('cors');
+
 //DB setup
 mongoose.connect('mongodb://localhost:auth/auth-task');
 
 //App Setup
 app.use(morgan('combined')); //morgan is used for logs (debugging)
 app.use(bodyParser.json({type:'*/*'}));
+app.use(cors());
 router(app);
 
 //Server Setup

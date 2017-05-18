@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const jwt = require('jwt-simple');
 const config = require('../config');
+const emailValidator =require('email-validator');
 
 const secret ='uhfehsf78fdsfs8';
 
@@ -19,11 +20,12 @@ exports.signin = function(req,res,next) {
 
 exports.signup = function(req,res,next) {
 
+  console.log(req);
+
    const email = req.body.email;
    const password = req.body.password;
    const name = req.body.name;
    const dateOfBirth = req.body.dateOfBirth;
-   const status = req.body.status;
 //
 
    if(!email||!password){
@@ -31,6 +33,17 @@ exports.signup = function(req,res,next) {
      return res.status(422).send({error:'You must provide email and password'});
 
    }
+    
+    const isValidEmail= emailValidator.validate(email);
+    if(!isValidEmail)
+    {
+    return res.status(422).send({error:'You must provide correct email'});
+    }
+
+
+
+
+  
    User.findOne({email:email},function(err,existingUser){
 
      if(err){ return next(err); }
@@ -45,8 +58,7 @@ exports.signup = function(req,res,next) {
        email : email,
        password:password,
        name:name,
-       dateOfBirth:dateOfBirth,
-       status:status
+       dateOfBirth:dateOfBirth
      });
 
      user.save(function(err){
@@ -85,8 +97,7 @@ exports.fetchUser = function(req,res,next){
         success:"true",
         email:User.email,
         name:User.name,
-        dateOfBirth:User.dateOfBirth,
-        status:User.status
+        dateOfBirth:User.dateOfBirth
       });
 
     }
@@ -102,7 +113,6 @@ exports.updateUser = function(req,res,next){
   const email = req.body.email;
   const name = req.body.name;
   const dateOfBirth=req.body.dateOfBirth;
-  const status=req.body.status;
 
 
   if(!id)
@@ -124,9 +134,6 @@ exports.updateUser = function(req,res,next){
       }
       if(dateOfBirth){
           User.dateOfBirth=dateOfBirth;
-      }
-      if(status){
-          User.status=status;
       }
          User.save(function(){
            res.send({

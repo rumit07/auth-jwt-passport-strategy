@@ -23,6 +23,12 @@ app.post('/signup',Authentication.signup);
 //requireAuth is a middleware which checks if user is authenticated or not .
   app.get('/user/:id',requireAuth,Authentication.fetchUser);
 
+
+  app.get('/profile',requireAuth,function(req,res)
+  {
+    res.send({msg:'Welcome'})
+  });
+
 //Same goes for this route also
   app.put('/update/:id',requireAuth,Authentication.updateUser);
 

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost:3090/profile',
+                type: 'GET',
+                crossDomain: true,
+                crossOrigin: true,
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    'authorization': localStorage.getItem('auth_key')
+                },
+                dataType: 'json',
+                success: function (json) {
+
+                    $("#right-header").show();
+                    $("#left-header").hide();
+                },
+
+                error: function (err) {
+                    if (err) {
+                        if (err.status = 401) {
+                            window.location.replace("signin.html");
+                        }
+                    }
+                }
+
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">Employee System</a>
+            </div>
+            <ul class="nav navbar-nav" id="left-header">
+
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="index.html">Sign Up</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" id="right-header" style="display:none">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>
+					Welcome </a></li>
+                <li><a href="#" id="logout"><span class="glyphicon glyphicon-log-in"></span>
+					Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <h1>
+        welcome here !!!
+    </h1>
+
+</body>
+
+<script>
+    $("#logout").on('click', function () {
+        localStorage.clear();
+        window.location.replace('signin.html')
+    });
+
+</script>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="">Employee System</a>
+            </div>
+            <ul class="nav navbar-nav">
+
+                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="index.html">Sign Up</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="display:none">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span>
+					Welcome </a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+					Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div id="SignUp-div">
+
+
+        <form class="form-horizontal" id="signin-form">
+
+
+            <div class="form-group">
+
+
+                <label class="control-label col-sm-2" for="username">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" name="email" id="email" required="true">
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="pwd">password</label>
+                <div class="col-sm-10">
+                    <input type="password" name="password" id="password" required="true">
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <div class="col-sm-10">
+                    <button class="btn btn-primary" type="submit" onclick=submitSignInForm() name="submit" id="employee-submit">
+					Sign In</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div id="error" style="display:none">
+        <h4 id="error-text" style="color:red">
+            </h1>
+    </div>
+</body>
+
+<script>
+    function submitSignInForm() {
+
+        $('#signin-form').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                }
+
+            },
+            messages: {
+
+                password: {
+                    minlength: "password should be more than 8 characters!"
+                },
+
+            },
+            submitHandler: function (form, event) {
+                event.preventDefault();
+                var o = {};
+                var a = $("#signin-form").serializeArray();
+                $.each(a, function () {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                var data1 = JSON.stringify(o);
+                $.ajax({
+                    url: 'http://localhost:3090/signin',
+                    type: 'POST',
+                    crossDomain: true,
+                    crossOrigin: true,
+                    contentType: "application/json; charset=utf-8",
+                    data: data1,
+                    dataType: 'json',
+                    success: function (json) {
+                        localStorage.setItem('auth_key', json.token);
+                        window.location.replace("profile.html");
+
+                    },
+
+                    error: function (err) {
+
+                        console.log(err);
+                        if (err) {
+                            if (err.status == 401) {
+                                $("#error").show();
+                                $("#error-text").html("Email and password does not match");
+                            }
+                        }
+                    }
+
+                });
+                return false;
+            }
+        });
+
+        //alert(file);
+
+    }
+
+</script>
+
+
+</html>

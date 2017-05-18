@@ -10,8 +10,7 @@ const userSchema = new Schema({
   email: {type:String,unique:true,lowercase:true},
   password:String,
   name:String,
-  dateOfBirth:Date,
-  status:String,
+  dateOfBirth:Date
 });
 
 //Create the model class
